@@ -21,6 +21,33 @@ $(document).ready(function () {
         } else {
             modal.find('.form-control').val('');
         }
+
+        $('#edit-task-btn').click(function () {
+        
+            var new_task = 
+            console.log(new_task)
+    
+    
+            $.ajax({
+                type: 'PATCH',
+                url: '/edit-task/' + taskID,
+                contentType: 'application/json;charset=UTF-8',
+                data: JSON.stringify({
+                    'task': new_task
+                }),
+                success: function (res) {
+                    
+                    console.log(res)
+                    location.reload();
+                }, 
+                error: function () {
+                    console.log('Error');
+                }
+            });
+    
+        });
+
+
     })
 
     $('#submit-task').click(function () {
@@ -84,6 +111,7 @@ $(document).ready(function () {
     });
 
 
+
  $('.state').click(function () {
         let state = $(this)
         let tID = state.data('source')
@@ -93,6 +121,9 @@ $(document).ready(function () {
             new_state = "In Progress"
         }
         if (state.text() === "In Progress") {
+            new_state = "Complete"
+        }
+        if (state.text() === "Complete") {
             new_state = "Complete"
         }
        
